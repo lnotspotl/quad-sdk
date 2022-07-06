@@ -63,8 +63,8 @@ void ContactStatePublisher::contactStateCallback(
 
   // Toe frame names
   std::string toe_transform_names[4] = {
-      ns + "_ground_truth/toe0", ns + "_ground_truth/toe1",
-      ns + "_ground_truth/toe2", ns + "_ground_truth/toe3"};
+      ns + "/toe0", ns + "/toe1",
+      ns + "/toe2", ns + "/toe3"};
 
   // Init grf
   grf_array_msg_.vectors[toe_idx].x = 0.0;

@@ -18,7 +18,7 @@
 
     <group if="$(eval arg('robot_type') == 'spot')">
         <rosparam command="load" file="$(find quad_utils)/config/spot.yaml" />
-        <param name="robot_description_sdf" textfile="$(find spot_description)/sdf/spot.sdf" />
-        <param name="robot_description" command="cat $(find spot_description)/urdf/spot.urdf" />
+        <param name="robot_description_sdf" textfile="$(find spot_description)/sdf/spot_with_camera.sdf" />
+        <param name="robot_description" command="cat $(find spot_description)/urdf/spot_with_camera.urdf" />
     </group>
 </launch>

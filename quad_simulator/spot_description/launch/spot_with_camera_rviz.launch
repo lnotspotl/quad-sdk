@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <arg name="robot" default="$(find spot_description)/urdf/spot_with_camera.urdf"/>
+    <param name="robot_description"
+         command="$(find xacro)/xacro --inorder $(arg robot)" />
+
+    <node pkg="joint_state_publisher_gui"
+         type="joint_state_publisher_gui" name="joint_state_publisher_gui"/>
+
+    <node pkg="robot_state_publisher"
+         type="robot_state_publisher" name="robot_state_publisher">
+    </node>
+
+    <node pkg="rviz" type="rviz" name="rviz" respawn="false" output="screen"
+          args="-d $(find spot_description)/launch/spot_rviz.rviz"/>
+</launch>

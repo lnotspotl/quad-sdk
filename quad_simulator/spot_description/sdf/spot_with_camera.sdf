@@ -1,0 +1,1367 @@
+<sdf version='1.6'>
+  <model name='spot'>
+    <link name='body'>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0.002284 -4.1e-05 0.025163 0 -0 0</pose>
+        <mass>13.734</mass>
+        <inertia>
+          <ixx>0.0734495</ixx>
+          <ixy>0.00030338</ixy>
+          <ixz>0.00191816</ixz>
+          <iyy>0.250785</iyy>
+          <iyz>-7.5401e-05</iyz>
+          <izz>0.254569</izz>
+        </inertia>
+      </inertial>
+      <collision name='body_fixed_joint_lump__trunk_collision'>
+        <pose frame=''>0 0 0.01675 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.78 0.25 0.21</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='body_fixed_joint_lump__imu_link_collision_1'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='body_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <visual name='body_fixed_joint_lump__trunk_visual_1'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/body.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <visual name='body_fixed_joint_lump__imu_link_visual_2'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay/>
+      <velocity_decay/>
+      <velocity_decay/>
+      <sensor name='realsense_R200' type='depth'>
+        <always_on>1</always_on>
+        <visualize>0</visualize>
+        <camera name='__default__'>
+          <horizontal_fov>1</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <depth_camera>
+            <output>depths</output>
+          </depth_camera>
+          <clip>
+            <near>0.005</near>
+            <far>6</far>
+          </clip>
+        </camera>
+        <plugin name='camera_controller' filename='libgazebo_ros_openni_kinect.so'>
+          <baseline>0.2</baseline>
+          <alwaysOn>1</alwaysOn>
+          <updateRate>5.0</updateRate>
+          <cameraName>camera</cameraName>
+          <frameName>camera_optical</frameName>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudCutoff>0.4</pointCloudCutoff>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <CxPrime>0.0</CxPrime>
+          <Cx>0.0</Cx>
+          <Cy>0.0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+        <pose frame=''>0.42 0 0 0 -0 0</pose>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <gravity>1</gravity>
+      <sensor name='imu_sensor' type='imu'>
+        <always_on>1</always_on>
+        <update_rate>1000</update_rate>
+        <visualize>1</visualize>
+        <topic>__default_topic__</topic>
+        <plugin name='imu_plugin' filename='libgazebo_ros_imu_sensor.so'>
+          <topicName>trunk_imu</topicName>
+          <bodyName>imu_link</bodyName>
+          <updateRateHZ>1000.0</updateRateHZ>
+          <gaussianNoise>0.0</gaussianNoise>
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+          <frameName>imu_link</frameName>
+        </plugin>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+      </sensor>
+    </link>
+    <link name='hip2'>
+      <pose frame=''>0.29785 -0.055 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.001568 0.008134 0.000864 0 -0 0</pose>
+        <mass>1.096</mass>
+        <inertia>
+          <ixx>0.000822113</ixx>
+          <ixy>4.982e-06</ixy>
+          <ixz>-3.672e-05</ixz>
+          <iyy>0.000983196</iyy>
+          <iyz>-2.811e-06</iyz>
+          <izz>0.000864753</izz>
+        </inertia>
+      </inertial>
+      <collision name='hip2_collision'>
+        <pose frame=''>0 0.021 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.08</length>
+            <radius>0.041</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='hip2_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/front_right_hip.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='10' type='revolute'>
+      <child>hip2</child>
+      <parent>body</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>20</effort>
+          <velocity>52.4</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='upper2'>
+      <pose frame=''>0.29785 -0.16595 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.000482 -0.02001 -0.031996 0 -0 0</pose>
+        <mass>0.228</mass>
+        <inertia>
+          <ixx>0.0099611</ixx>
+          <ixy>-1.0388e-05</ixy>
+          <ixz>0.000250428</ixz>
+          <iyy>0.00928008</iyy>
+          <iyz>8.511e-05</iyz>
+          <izz>0.00178256</izz>
+        </inertia>
+      </inertial>
+      <collision name='upper2_collision'>
+        <pose frame=''>0 0 -0.16 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.32 0.034 0.043</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='upper2_visual'>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/front_right_upper_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='4' type='revolute'>
+      <child>upper2</child>
+      <parent>hip2</parent>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='lower2'>
+      <pose frame=''>0.29785 -0.16595 -0.32147 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.002196 -0.000381 -0.12338 0 -0 0</pose>
+        <mass>0.041</mass>
+        <inertia>
+          <ixx>0.00618196</ixx>
+          <ixy>2.37e-07</ixy>
+          <ixz>-2.985e-06</ixz>
+          <iyy>0.00619655</iyy>
+          <iyz>5.138e-06</iyz>
+          <izz>3.4774e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lower2_collision'>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.33 0.016 0.016</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lower2_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/front_right_lower_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='5' type='revolute'>
+      <child>lower2</child>
+      <parent>upper2</parent>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='toe2'>
+      <pose frame=''>0.29785 -0.16595 -0.65447 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>1.6854e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.6854e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1.6854e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='toe2_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.037</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <velocity_decay/>
+      <sensor name='toe2_contact' type='contact'>
+        <plugin name='toe2_plugin' filename='libgazebo_ros_bumper.so'>
+          <alwaysOn>1</alwaysOn>
+          <updateRate>500</updateRate>
+          <bumperTopicName>gazebo/toe2_contact_state</bumperTopicName>
+          <frameName>world</frameName>
+        </plugin>
+        <contact>
+          <collision>toe2_collision</collision>
+          <topic>__default_topic__</topic>
+        </contact>
+        <update_rate>500</update_rate>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='jtoe2' type='fixed'>
+      <child>toe2</child>
+      <parent>lower2</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <use_parent_model_frame>0</use_parent_model_frame>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='hip3'>
+      <pose frame=''>-0.29785 -0.055 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0.001568 0.008134 0.000864 0 -0 0</pose>
+        <mass>1.096</mass>
+        <inertia>
+          <ixx>0.000822113</ixx>
+          <ixy>-4.982e-06</ixy>
+          <ixz>3.672e-05</ixz>
+          <iyy>0.000983196</iyy>
+          <iyz>-2.811e-06</iyz>
+          <izz>0.000864753</izz>
+        </inertia>
+      </inertial>
+      <collision name='hip3_collision'>
+        <pose frame=''>0 0.021 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.08</length>
+            <radius>0.041</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='hip3_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/rear_right_hip.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='11' type='revolute'>
+      <child>hip3</child>
+      <parent>body</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>20</effort>
+          <velocity>52.4</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='upper3'>
+      <pose frame=''>-0.29785 -0.16595 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.000482 -0.02001 -0.031996 0 -0 0</pose>
+        <mass>0.228</mass>
+        <inertia>
+          <ixx>0.00991611</ixx>
+          <ixy>-1.0388e-05</ixy>
+          <ixz>0.000250428</ixz>
+          <iyy>0.00928008</iyy>
+          <iyz>8.511e-05</iyz>
+          <izz>0.00178256</izz>
+        </inertia>
+      </inertial>
+      <collision name='upper3_collision'>
+        <pose frame=''>0 0 -0.16 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.32 0.034 0.043</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='upper3_visual'>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/rear_right_upper_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='6' type='revolute'>
+      <child>upper3</child>
+      <parent>hip3</parent>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='lower3'>
+      <pose frame=''>-0.29785 -0.16595 -0.32147 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.002196 -0.000381 -0.12338 0 -0 0</pose>
+        <mass>0.041</mass>
+        <inertia>
+          <ixx>0.00618196</ixx>
+          <ixy>2.37e-07</ixy>
+          <ixz>-2.985e-06</ixz>
+          <iyy>0.00619655</iyy>
+          <iyz>5.138e-06</iyz>
+          <izz>3.4774e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lower3_collision'>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.33 0.016 0.016</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lower3_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/rear_right_lower_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='7' type='revolute'>
+      <child>lower3</child>
+      <parent>upper3</parent>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='toe3'>
+      <pose frame=''>-0.29785 -0.16595 -0.65447 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>1.6854e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.6854e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1.6854e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='toe3_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.037</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <velocity_decay/>
+      <sensor name='toe3_contact' type='contact'>
+        <plugin name='toe3_plugin' filename='libgazebo_ros_bumper.so'>
+          <alwaysOn>1</alwaysOn>
+          <updateRate>500</updateRate>
+          <bumperTopicName>gazebo/toe3_contact_state</bumperTopicName>
+          <frameName>world</frameName>
+        </plugin>
+        <contact>
+          <collision>toe3_collision</collision>
+          <topic>__default_topic__</topic>
+        </contact>
+        <update_rate>500</update_rate>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='jtoe3' type='fixed'>
+      <child>toe3</child>
+      <parent>lower3</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <use_parent_model_frame>0</use_parent_model_frame>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='hip0'>
+      <pose frame=''>0.29785 0.055 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.001568 -0.008134 0.000864 0 -0 0</pose>
+        <mass>1.096</mass>
+        <inertia>
+          <ixx>0.000822113</ixx>
+          <ixy>-4.982e-06</ixy>
+          <ixz>-3.672e-05</ixz>
+          <iyy>0.000983196</iyy>
+          <iyz>2.811e-06</iyz>
+          <izz>0.000864753</izz>
+        </inertia>
+      </inertial>
+      <collision name='hip0_collision'>
+        <pose frame=''>0 -0.021 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.08</length>
+            <radius>0.041</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='hip0_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/front_left_hip.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='8' type='revolute'>
+      <child>hip0</child>
+      <parent>body</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>20</effort>
+          <velocity>52.4</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='upper0'>
+      <pose frame=''>0.29785 0.16595 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.000482 0.02001 -0.031996 0 -0 0</pose>
+        <mass>0.228</mass>
+        <inertia>
+          <ixx>0.00991611</ixx>
+          <ixy>1.0388e-05</ixy>
+          <ixz>0.000250428</ixz>
+          <iyy>0.00928008</iyy>
+          <iyz>-8.511e-05</iyz>
+          <izz>0.00178256</izz>
+        </inertia>
+      </inertial>
+      <collision name='upper0_collision'>
+        <pose frame=''>0 0 -0.16 3.14159 -1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.32 0.034 0.043</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='upper0_visual'>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/front_left_upper_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='0' type='revolute'>
+      <child>upper0</child>
+      <parent>hip0</parent>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='lower0'>
+      <pose frame=''>0.29785 0.16595 -0.32147 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.002196 -0.000381 -0.12338 0 -0 0</pose>
+        <mass>0.041</mass>
+        <inertia>
+          <ixx>0.00618196</ixx>
+          <ixy>2.37e-07</ixy>
+          <ixz>-2.985e-06</ixz>
+          <iyy>0.00619655</iyy>
+          <iyz>5.138e-06</iyz>
+          <izz>3.4774e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lower0_collision'>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.33 0.016 0.016</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lower0_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/front_left_lower_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='1' type='revolute'>
+      <child>lower0</child>
+      <parent>upper0</parent>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='toe0'>
+      <pose frame=''>0.29785 0.16595 -0.65447 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>1.6854e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.6854e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1.6854e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='toe0_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.037</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <velocity_decay/>
+      <sensor name='toe0_contact' type='contact'>
+        <plugin name='toe0_plugin' filename='libgazebo_ros_bumper.so'>
+          <alwaysOn>1</alwaysOn>
+          <updateRate>500</updateRate>
+          <bumperTopicName>gazebo/toe0_contact_state</bumperTopicName>
+          <frameName>world</frameName>
+        </plugin>
+        <contact>
+          <collision>toe0_collision</collision>
+          <topic>__default_topic__</topic>
+        </contact>
+        <update_rate>500</update_rate>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='jtoe0' type='fixed'>
+      <child>toe0</child>
+      <parent>lower0</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <use_parent_model_frame>0</use_parent_model_frame>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='hip1'>
+      <pose frame=''>-0.29785 0.055 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0.001568 -0.008134 0.000864 0 -0 0</pose>
+        <mass>1.096</mass>
+        <inertia>
+          <ixx>0.000822113</ixx>
+          <ixy>4.982e-06</ixy>
+          <ixz>3.672e-05</ixz>
+          <iyy>0.000983196</iyy>
+          <iyz>2.811e-06</iyz>
+          <izz>0.000864753</izz>
+        </inertia>
+      </inertial>
+      <collision name='hip1_collision'>
+        <pose frame=''>0 -0.021 0 1.5708 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.08</length>
+            <radius>0.041</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='hip1_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/rear_left_hip.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='9' type='revolute'>
+      <child>hip1</child>
+      <parent>body</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>20</effort>
+          <velocity>52.4</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='upper1'>
+      <pose frame=''>-0.29785 0.16595 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.000482 0.02001 -0.031996 0 -0 0</pose>
+        <mass>0.228</mass>
+        <inertia>
+          <ixx>0.00991611</ixx>
+          <ixy>1.0388e-05</ixy>
+          <ixz>0.000250428</ixz>
+          <iyy>0.00928008</iyy>
+          <iyz>-8.511e-05</iyz>
+          <izz>0.00178256</izz>
+        </inertia>
+      </inertial>
+      <collision name='upper1_collision'>
+        <pose frame=''>0 0 -0.16 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.32 0.034 0.043</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='upper1_visual'>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/rear_left_upper_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='2' type='revolute'>
+      <child>upper1</child>
+      <parent>hip1</parent>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='lower1'>
+      <pose frame=''>-0.29785 0.16595 -0.32147 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>-0.002196 -0.000381 -0.12338 0 -0 0</pose>
+        <mass>0.041</mass>
+        <inertia>
+          <ixx>0.00618196</ixx>
+          <ixy>2.37e-07</ixy>
+          <ixz>-2.985e-06</ixz>
+          <iyy>0.00619655</iyy>
+          <iyz>5.138e-06</iyz>
+          <izz>3.4774e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='lower1_collision'>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
+        <geometry>
+          <box>
+            <size>0.33 0.016 0.016</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='lower1_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model:///meshes/rear_left_lower_leg.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='3' type='revolute'>
+      <child>lower1</child>
+      <parent>upper1</parent>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.14</lower>
+          <upper>3.14</upper>
+          <effort>55</effort>
+          <velocity>28.6</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='toe1'>
+      <pose frame=''>-0.29785 0.16595 -0.65447 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>0.01</mass>
+        <inertia>
+          <ixx>1.6854e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1.6854e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1.6854e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='toe1_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.037</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <kp>1e+06</kp>
+              <kd>1</kd>
+            </ode>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.85</mu>
+              <mu2>0.85</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <velocity_decay/>
+      <sensor name='toe1_contact' type='contact'>
+        <plugin name='toe1_plugin' filename='libgazebo_ros_bumper.so'>
+          <alwaysOn>1</alwaysOn>
+          <updateRate>500</updateRate>
+          <bumperTopicName>gazebo/toe1_contact_state</bumperTopicName>
+          <frameName>world</frameName>
+        </plugin>
+        <contact>
+          <collision>toe1_collision</collision>
+          <topic>__default_topic__</topic>
+        </contact>
+        <update_rate>500</update_rate>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+    </link>
+    <joint name='jtoe1' type='fixed'>
+      <child>toe1</child>
+      <parent>lower1</parent>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <use_parent_model_frame>0</use_parent_model_frame>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <static>0</static>
+    <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+    <plugin name='ground_truth_estimator' filename='libground_truth_estimator.so'>
+      <updateRateHZ>500.0</updateRateHZ>
+    </plugin>
+    <plugin name='gazebo_ros_force' filename='libgazebo_ros_force.so'>
+      <topicName>/apply_force/trunk</topicName>
+      <bodyName>body</bodyName>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 -0 0</rpyOffset>
+    </plugin>
+  </model>
+</sdf>

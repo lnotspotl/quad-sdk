@@ -25,8 +25,8 @@
     </group>
 
     <group if="$(eval arg('robot_type') == 'spot')">
-        <param name="robot_description_sdf" textfile="$(find spot_description)/sdf/spot.sdf" />
-        <param name="robot_description" command="cat $(find spot_description)/urdf/spot.urdf" />
+        <param name="robot_description_sdf" textfile="$(find spot_description)/sdf/spot_with_camera.sdf" />
+        <param name="robot_description" command="cat $(find spot_description)/urdf/spot_with_camera.urdf" />
     </group>
 
     <group if="$(arg load_robot_params)">
