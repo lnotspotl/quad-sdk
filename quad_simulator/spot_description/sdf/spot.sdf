@@ -18,7 +18,7 @@
         <pose frame=''>0 0 0.01675 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.5616 0.172 0.1875</size>
+            <size>0.78 0.25 0.21</size>
           </box>
         </geometry>
         <surface>
@@ -152,7 +152,7 @@
         </surface>
       </collision>
       <visual name='hip2_visual'>
-        <pose frame=''>0 0 0 -3.14159 -0 0</pose>
+        <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -204,10 +204,10 @@
         </inertia>
       </inertial>
       <collision name='upper2_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.16 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.034 0.043</size>
+            <size>0.32 0.034 0.043</size>
           </box>
         </geometry>
         <surface>
@@ -226,7 +226,7 @@
         </surface>
       </collision>
       <visual name='upper2_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -279,10 +279,10 @@
         </inertia>
       </inertial>
       <collision name='lower2_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.016 0.016</size>
+            <size>0.33 0.016 0.016</size>
           </box>
         </geometry>
         <surface>
@@ -340,7 +340,7 @@
       <pose frame=''>0.29785 -0.16595 -0.65447 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>0.06</mass>
+        <mass>0.01</mass>
         <inertia>
           <ixx>1.6854e-05</ixx>
           <ixy>0</ixy>
@@ -372,20 +372,6 @@
           </friction>
         </surface>
       </collision>
-      <visual name='toe2_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <sphere>
-            <radius>0.0165</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <script>
-            <uri>__default__</uri>
-            <name>__default__</name>
-          </script>
-        </material>
-      </visual>
       <velocity_decay/>
       <sensor name='toe2_contact' type='contact'>
         <plugin name='toe2_plugin' filename='libgazebo_ros_bumper.so'>
@@ -463,7 +449,7 @@
         </surface>
       </collision>
       <visual name='hip3_visual'>
-        <pose frame=''>0 0 0 0 -0 3.14159</pose>
+        <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -515,10 +501,10 @@
         </inertia>
       </inertial>
       <collision name='upper3_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.16 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.034 0.043</size>
+            <size>0.32 0.034 0.043</size>
           </box>
         </geometry>
         <surface>
@@ -537,7 +523,7 @@
         </surface>
       </collision>
       <visual name='upper3_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -590,10 +576,10 @@
         </inertia>
       </inertial>
       <collision name='lower3_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.016 0.016</size>
+            <size>0.33 0.016 0.016</size>
           </box>
         </geometry>
         <surface>
@@ -651,7 +637,7 @@
       <pose frame=''>-0.29785 -0.16595 -0.65447 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>0.06</mass>
+        <mass>0.01</mass>
         <inertia>
           <ixx>1.6854e-05</ixx>
           <ixy>0</ixy>
@@ -683,20 +669,6 @@
           </friction>
         </surface>
       </collision>
-      <visual name='toe3_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <sphere>
-            <radius>0.0165</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <script>
-            <uri>__default__</uri>
-            <name>__default__</name>
-          </script>
-        </material>
-      </visual>
       <velocity_decay/>
       <sensor name='toe3_contact' type='contact'>
         <plugin name='toe3_plugin' filename='libgazebo_ros_bumper.so'>
@@ -826,10 +798,10 @@
         </inertia>
       </inertial>
       <collision name='upper0_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 -1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.16 3.14159 -1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.034 0.043</size>
+            <size>0.32 0.034 0.043</size>
           </box>
         </geometry>
         <surface>
@@ -848,7 +820,7 @@
         </surface>
       </collision>
       <visual name='upper0_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -901,10 +873,10 @@
         </inertia>
       </inertial>
       <collision name='lower0_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.016 0.016</size>
+            <size>0.33 0.016 0.016</size>
           </box>
         </geometry>
         <surface>
@@ -962,7 +934,7 @@
       <pose frame=''>0.29785 0.16595 -0.65447 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>0.06</mass>
+        <mass>0.01</mass>
         <inertia>
           <ixx>1.6854e-05</ixx>
           <ixy>0</ixy>
@@ -994,20 +966,6 @@
           </friction>
         </surface>
       </collision>
-      <visual name='toe0_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <sphere>
-            <radius>0.0165</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <script>
-            <uri>__default__</uri>
-            <name>__default__</name>
-          </script>
-        </material>
-      </visual>
       <velocity_decay/>
       <sensor name='toe0_contact' type='contact'>
         <plugin name='toe0_plugin' filename='libgazebo_ros_bumper.so'>
@@ -1085,7 +1043,7 @@
         </surface>
       </collision>
       <visual name='hip1_visual'>
-        <pose frame=''>0 0 0 3.14159 -0 3.14159</pose>
+        <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1137,10 +1095,10 @@
         </inertia>
       </inertial>
       <collision name='upper1_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.16 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.034 0.043</size>
+            <size>0.32 0.034 0.043</size>
           </box>
         </geometry>
         <surface>
@@ -1159,7 +1117,7 @@
         </surface>
       </collision>
       <visual name='upper1_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 0.075 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -1212,10 +1170,10 @@
         </inertia>
       </inertial>
       <collision name='lower1_collision'>
-        <pose frame=''>0 0 -0.125 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.165 3.14159 1.57079 3.14159</pose>
         <geometry>
           <box>
-            <size>0.25 0.016 0.016</size>
+            <size>0.33 0.016 0.016</size>
           </box>
         </geometry>
         <surface>
@@ -1273,7 +1231,7 @@
       <pose frame=''>-0.29785 0.16595 -0.65447 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>0.06</mass>
+        <mass>0.01</mass>
         <inertia>
           <ixx>1.6854e-05</ixx>
           <ixy>0</ixy>
@@ -1305,20 +1263,6 @@
           </friction>
         </surface>
       </collision>
-      <visual name='toe1_visual'>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <geometry>
-          <sphere>
-            <radius>0.0165</radius>
-          </sphere>
-        </geometry>
-        <material>
-          <script>
-            <uri>__default__</uri>
-            <name>__default__</name>
-          </script>
-        </material>
-      </visual>
       <velocity_decay/>
       <sensor name='toe1_contact' type='contact'>
         <plugin name='toe1_plugin' filename='libgazebo_ros_bumper.so'>

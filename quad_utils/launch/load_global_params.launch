@@ -24,6 +24,11 @@
         <param name="robot_description" command="cat $(find a1_description)/urdf/a1.urdf" />
     </group>
 
+    <group if="$(eval arg('robot_type') == 'spot')">
+        <param name="robot_description_sdf" textfile="$(find spot_description)/sdf/spot.sdf" />
+        <param name="robot_description" command="cat $(find spot_description)/urdf/spot.urdf" />
+    </group>
+
     <group if="$(arg load_robot_params)">
         <include file="$(find quad_utils)/launch/load_robot_params.launch"/>
     </group>

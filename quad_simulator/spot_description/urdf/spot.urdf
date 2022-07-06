@@ -165,12 +165,6 @@
   </joint>
   
   <link name="toe2">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <sphere radius="0.0165"/>
-      </geometry>
-    </visual>
     <collision name="toe2_collision">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -206,7 +200,7 @@
       </surface>
     </collision>
     <inertial>
-      <mass value="0.06"/>
+      <mass value="0.01"/>
       <inertia ixx="1.6854e-05" ixy="0.0" ixz="0.0" iyy="1.6854e-05" iyz="0.0" izz="1.6854e-05"/>
     </inertial>
   </link>
@@ -308,12 +302,6 @@
   </joint>
   
   <link name="toe0">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <sphere radius="0.0165"/>
-      </geometry>
-    </visual>
     <collision name="toe0_collision">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -349,7 +337,7 @@
       </surface>
     </collision>
     <inertial>
-      <mass value="0.06"/>
+      <mass value="0.01"/>
       <inertia ixx="1.6854e-05" ixy="0.0" ixz="0.0" iyy="1.6854e-05" iyz="0.0" izz="1.6854e-05"/>
     </inertial>
   </link>
@@ -451,12 +439,6 @@
   </joint>
   
   <link name="toe3">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <sphere radius="0.0165"/>
-      </geometry>
-    </visual>
     <collision name="toe3_collision">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -492,7 +474,7 @@
       </surface>
     </collision>
     <inertial>
-      <mass value="0.06"/>
+      <mass value="0.01"/>
       <inertia ixx="1.6854e-05" ixy="0.0" ixz="0.0" iyy="1.6854e-05" iyz="0.0" izz="1.6854e-05"/>
     </inertial>
   </link>
@@ -594,12 +576,6 @@
   </joint>
   
   <link name="toe1">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <sphere radius="0.0165"/>
-      </geometry>
-    </visual>
     <collision name="toe1_collision">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -635,7 +611,7 @@
       </surface>
     </collision>
     <inertial>
-      <mass value="0.06"/>
+      <mass value="0.01"/>
       <inertia ixx="1.6854e-05" ixy="0.0" ixz="0.0" iyy="1.6854e-05" iyz="0.0" izz="1.6854e-05"/>
     </inertial>
   </link>

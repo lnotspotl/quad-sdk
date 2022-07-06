@@ -36,44 +36,34 @@ void QuadKD::initModel(std::string ns) {
     return body_id_list_.at(i) < body_id_list_.at(j);
   });
 
-  // Read leg geometry from URDF
+  // Spot's body dimensions
+  constexpr double body_length = 0.29785 * 2;
+  constexpr double body_width = 0.055 * 2;
+
+  // Spot's leg dimensions
+  constexpr double l0 = 0.11095;
+  constexpr double l1 = 0.32147;
+  constexpr double l2 = 0.333;
+
   legbase_offsets_.resize(4);
   l0_vec_.resize(4);
-  std::vector<std::string> hip_name_list = {"hip0", "hip1", "hip2", "hip3"};
-  std::vector<std::string> upper_name_list = {"upper0", "upper1", "upper2",
-                                              "upper3"};
-  std::vector<std::string> lower_name_list = {"lower0", "lower1", "lower2",
-                                              "lower3"};
-  std::vector<std::string> toe_name_list = {"toe0", "toe1", "toe2", "toe3"};
-  RigidBodyDynamics::Math::SpatialTransform tform;
-  for (size_t i = 0; i < 4; i++) {
-    // From body COM to abad
-    tform =
-        model_->GetJointFrame(model_->GetBodyId(hip_name_list.at(i).c_str()));
-    legbase_offsets_[i] = tform.r;
 
-    // From abad to hip
-    tform =
-        model_->GetJointFrame(model_->GetBodyId(upper_name_list.at(i).c_str()));
-    l0_vec_[i] = tform.r(1);
+  l0_vec_[0] =  l0;
+  l0_vec_[1] =  l0;
+  l0_vec_[2] = -l0;
+  l0_vec_[3] = -l0;
 
-    // From hip to knee (we know they should be the same and the equation in IK
-    // uses the magnitute of it)
-    tform =
-        model_->GetJointFrame(model_->GetBodyId(lower_name_list.at(i).c_str()));
-    l1_ = tform.r.cwiseAbs().maxCoeff();
-    knee_offset_ = tform.r;
+  l1_ = l1;
+  l2_ = l2;
 
-    // From knee to toe (we know they should be the same and the equation in IK
-    // uses the magnitute of it)
-    tform =
-        model_->GetJointFrame(model_->GetBodyId(toe_name_list.at(i).c_str()));
-    l2_ = tform.r.cwiseAbs().maxCoeff();
-    foot_offset_ = tform.r;
-  }
+  legbase_offsets_[0] = { body_length / 2,  body_width / 2, 0};
+  legbase_offsets_[1] = {-body_length / 2,  body_width / 2, 0};
+  legbase_offsets_[2] = { body_length / 2, -body_width / 2, 0};
+  legbase_offsets_[3] = {-body_length / 2, -body_width / 2, 0};
 
-  // Abad offset from legbase
-  abad_offset_ = {0, 0, 0};
+  knee_offset_ = {0, 0,-l1};
+  foot_offset_ = {0, 0,-l2};
+  abad_offset_ = {0, 0,  0};
 
   g_body_legbases_.resize(4);
   for (int leg_index = 0; leg_index < 4; leg_index++) {
@@ -86,10 +76,10 @@ void QuadKD::initModel(std::string ns) {
   joint_min_.resize(num_feet_);
   joint_max_.resize(num_feet_);
 
-  std::vector<double> joint_min_front = {-0.707, -M_PI * 0.5, 0};
-  std::vector<double> joint_min_back = {-0.707, -M_PI, 0};
-  std::vector<double> joint_max_front = {0.707, M_PI, M_PI};
-  std::vector<double> joint_max_back = {0.707, M_PI * 0.5, M_PI};
+  std::vector<double> joint_min_front = {-M_PI, -M_PI, -M_PI};
+  std::vector<double> joint_min_back =  {-M_PI, -M_PI, -M_PI};
+  std::vector<double> joint_max_front = { M_PI,  M_PI,  M_PI};
+  std::vector<double> joint_max_back =  { M_PI,  M_PI,  M_PI};
 
   joint_min_ = {joint_min_front, joint_min_back, joint_min_front,
                 joint_min_back};
@@ -374,113 +364,42 @@ bool QuadKD::legbaseToFootIKLegbaseFrame(int leg_index,
                                          Eigen::Vector3d &joint_state) const {
   // Initialize exact bool
   bool is_exact = true;
-
-  // Calculate offsets
-  Eigen::Vector3d legbase_offset = legbase_offsets_[leg_index];
   double l0 = l0_vec_[leg_index];
 
-  // Extract coordinates and declare joint variables
+  // Toe position expressed in the hip frame
   double x = foot_pos_legbase[0];
   double y = foot_pos_legbase[1];
   double z = foot_pos_legbase[2];
-  double q0;
-  double q1;
-  double q2;
 
-  // Start IK, check foot pos is at least l0 away from leg base, clamp otherwise
-  double temp = l0 / sqrt(z * z + y * y);
-  if (abs(temp) > 1) {
-    ROS_DEBUG_THROTTLE(0.5, "Foot too close, choosing closest alternative\n");
+  double E = z*z + y*y - l0 * l0;
+
+  // Check reachability
+  if(E < 0) {
+    ROS_DEBUG_THROTTLE(0.5, "Toe position is too close to hip!");
     is_exact = false;
-    temp = std::max(std::min(temp, 1.0), -1.0);
+    E = 0.0;
   }
+  double E_sqrt = sqrt(E);
 
-  // Compute both solutions of q0, use hip-above-knee if z<0 (preferred)
-  // Store the inverted solution in case hip limits are exceeded
-  if (z > 0) {
-    q0 = -acos(temp) + atan2(z, y);
-  } else {
-    q0 = acos(temp) + atan2(z, y);
-  }
+  // Hip joint angle
+  double theta1 = atan2(E_sqrt, l0) + atan2(z,y);
 
-  // Make sure abad is within joint limits, clamp otherwise
-  if (q0 > joint_max_[leg_index][0] || q0 < joint_min_[leg_index][0]) {
-    q0 = std::max(std::min(q0, joint_max_[leg_index][0]),
-                  joint_min_[leg_index][0]);
+  double D = (E + x * x - l1_*l1_ - l2_*l2_) / (2.0 * l1_ * l2_); 
+
+  // Check reachability
+  if(abs(D) > 1.0) {
+    ROS_DEBUG_THROTTLE(0.5, "Toe position is too far away from shoulder!");
     is_exact = false;
-    ROS_DEBUG_THROTTLE(0.5, "Abad limits exceeded, clamping to %5.3f \n", q0);
+    D = 1.0;
   }
 
-  // Rotate to ab-ad fixed frame
-  double z_body_frame = z;
-  z = -sin(q0) * y + cos(q0) * z_body_frame;
+  // Lower leg joint angle
+  double theta4 =  -atan2(sqrt(1.0-D*D), D);
 
-  // Check reachibility for hip
-  double acos_eps = 1.0;
-  double temp2 =
-      (l1_ * l1_ + x * x + z * z - l2_ * l2_) / (2 * l1_ * sqrt(x * x + z * z));
-  if (abs(temp2) > acos_eps) {
-    ROS_DEBUG_THROTTLE(0.5,
-                       "Foot location too far for hip, choosing closest"
-                       " alternative \n");
-    is_exact = false;
-    temp2 = std::max(std::min(temp2, acos_eps), -acos_eps);
-  }
+  // Upper leg joint angle
+  double theta3 = -atan2(-x,E_sqrt) + atan2(l2_ * sin(theta4), l1_ + l2_ * cos(theta4));
 
-  // Check reachibility for knee
-  double temp3 = (l1_ * l1_ + l2_ * l2_ - x * x - z * z) / (2 * l1_ * l2_);
-
-  if (temp3 > acos_eps || temp3 < -acos_eps) {
-    ROS_DEBUG_THROTTLE(0.5,
-                       "Foot location too far for knee, choosing closest"
-                       " alternative \n");
-    is_exact = false;
-
-    temp3 = std::max(std::min(temp3, acos_eps), -acos_eps);
-  }
-
-  // Compute joint angles
-  q1 = 0.5 * M_PI + atan2(x, -z) - acos(temp2);
-
-  // Make sure hip is within joint limits
-  if (q1 > joint_max_[leg_index][1] || q1 < joint_min_[leg_index][1]) {
-    q1 = std::max(std::min(q1, joint_max_[leg_index][1]),
-                  joint_min_[leg_index][1]);
-    is_exact = false;
-    ROS_DEBUG_THROTTLE(0.5, "Hip limits exceeded, clamping to %5.3f \n", q1);
-  }
-
-  // Compute knee val to get closest toe position in the plane
-  Eigen::Vector2d knee_pos, toe_pos, toe_offset;
-  knee_pos << -l1_ * cos(q1), -l1_ * sin(q1);
-  toe_pos << x, z;
-  toe_offset = toe_pos - knee_pos;
-  q2 = atan2(-toe_offset(1), toe_offset(0)) + q1;
-
-  // Make sure knee is within joint limits
-  if (q2 > joint_max_[leg_index][2] || q2 < joint_min_[leg_index][2]) {
-    q2 = std::max(std::min(q2, joint_max_[leg_index][2]),
-                  joint_min_[leg_index][2]);
-    is_exact = false;
-    ROS_DEBUG_THROTTLE(0.5, "Knee limit exceeded, clamping to %5.3f \n", q2);
-  }
-
-  // q1 is undefined if q2=0, resolve this
-  if (q2 == 0) {
-    q1 = 0;
-    ROS_DEBUG_THROTTLE(0.5,
-                       "Hip value undefined (in singularity), setting to"
-                       " %5.3f \n",
-                       q1);
-    is_exact = false;
-  }
-
-  if (z_body_frame - l0 * sin(q0) > 0) {
-    ROS_DEBUG_THROTTLE(0.5, "IK solution is in hip-inverted region! Beware!\n");
-    is_exact = false;
-  }
-
-  joint_state = {q0, q1, q2};
+  joint_state = {theta1, theta3, theta4};
   return is_exact;
 }
 

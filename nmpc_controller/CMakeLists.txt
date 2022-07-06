@@ -52,6 +52,9 @@ add_library(nmpc_controller
   src/gen/eval_g_spirit.cpp
   src/gen/eval_jac_g_spirit.cpp
   src/gen/eval_hess_g_spirit.cpp
+  src/gen/eval_g_spot.cpp
+  src/gen/eval_jac_g_spot.cpp
+  src/gen/eval_hess_g_spot.cpp
   src/gen/eval_g_a1.cpp
   src/gen/eval_jac_g_a1.cpp
   src/gen/eval_hess_g_a1.cpp

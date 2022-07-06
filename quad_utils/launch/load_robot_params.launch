@@ -15,4 +15,10 @@
         <param name="robot_description_sdf" textfile="$(find a1_description)/sdf_mesh/a1.sdf" />
         <param name="robot_description" command="cat $(find a1_description)/urdf/a1.urdf" />
     </group>
+
+    <group if="$(eval arg('robot_type') == 'spot')">
+        <rosparam command="load" file="$(find quad_utils)/config/spot.yaml" />
+        <param name="robot_description_sdf" textfile="$(find spot_description)/sdf/spot.sdf" />
+        <param name="robot_description" command="cat $(find spot_description)/urdf/spot.urdf" />
+    </group>
 </launch>

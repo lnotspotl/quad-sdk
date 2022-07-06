@@ -1,12 +1,12 @@
 <launch>
 
-    <arg name="reference" default="gbpl" />
+    <arg name="reference" default="twist" />
     <arg name="multiple_robots" default="false"/>
     <arg name="logging" default="false" />
     <arg name="twist_input" default="none" />
     <arg name="leaping" default="true" />
     <arg name="ac" default="false" />
-    <arg name="robot_type" default="spirit"/>
+    <arg name="robot_type" default="spot"/>
 
     <!-- Define namespaces for each robot -->
     <arg name="namespace_1" default="robot_1"/>
