@@ -59,5 +59,7 @@
   <node pkg="elevation_mapping" type="elevation_mapping" name="elevation_mapping" output="screen">
     <rosparam command="load" file="$(find quad_utils)/config/elevation_mapping/robots/spot.yaml"/>
     <rosparam command="load" file="$(find quad_utils)/config/elevation_mapping/postprocessing/postprocessor_pipeline.yaml"/>
+    <remap from="/elevation_mapping/elevation_map_raw" to="/terrain_map"/>
   </node>
+  
  </launch>

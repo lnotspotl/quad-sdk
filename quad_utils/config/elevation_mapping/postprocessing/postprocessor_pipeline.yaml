@@ -1,43 +1,30 @@
-# postprocessor_pipeline: # set by postprocessor_pipeline_name
-#   # Fill holes in the map with inpainting.
-#   - name: inpaint
-#     type: gridMapCv/InpaintFilter
-#     params:
-#       input_layer: elevation
-#       output_layer: elevation_inpainted
-#       radius: 0.1
-
-#   # Compute Surface normals
-#   - name: surface_normals
-#     type: gridMapFilters/NormalVectorsFilter
-#     params:
-#       input_layer: elevation_inpainted
-      # output_layers_prefix: normal_vectors_
-      # radius: 0.1
-      # normal_vector_positive_axis: z
-
-
 postprocessor_pipeline:
     # Duplicate layer.
-  - name: duplicate_zzz
+  - name: duplicate_elevation
     type: gridMapFilters/DuplicationFilter
     params:
       input_layer: elevation
-      output_layer: z
+      output_layer: z_temp
 
-  - name: duplicate_z
+  - name: duplicate_z_temp
     type: gridMapFilters/DuplicationFilter
     params:
-      input_layer: z
+      input_layer: z_temp
       output_layer: z_finite
 
   # Fill holes in the map with inpainting.
   - name: inpaint
     type: gridMapCv/InpaintFilter
     params:
-      input_layer: z
+      input_layer: z_temp
       output_layer: z_inpainted
       radius: 0.4
+
+  - name: duplicate_z
+    type: gridMapFilters/DuplicationFilter
+    params:
+      input_layer: z_inpainted
+      output_layer: z
 
   # Reduce noise with a radial blurring filter.
   - name: mean_in_radius
@@ -78,18 +65,6 @@ postprocessor_pipeline:
     params:
       output_layer: roughness
       expression: abs(z_inpainted - z_smooth)
-
-  # Uncomment to use edges
-  # Edge detection by computing the standard deviation from slope.
-  # - name: edge_detection
-  #   type: gridMapFilters/SlidingWindowMathExpressionFilter
-  #   params:
-  #     input_layer: slope
-  #     output_layer: edges
-  #     expression: sqrt(sumOfFinites(square(slope - meanOfFinites(slope))) ./ numberOfFinites(slope)) # Standard deviation
-  #     compute_empty_cells: false
-  #     edge_handling: crop # options: inside, crop, empty, mean
-  #     window_length: 0.1
 
   # Set lower threshold on traversability.
   - name: z_finite_threshold
@@ -161,20 +136,4 @@ postprocessor_pipeline:
   - name: delete
     type: gridMapFilters/DeletionFilter
     params:
-      layers: [z_finite, traversability_hole_mask, traversability_hole_mask_filtered]
-
-  # Duplicate layer.
-  - name: duplicate
-    type: gridMapFilters/DuplicationFilter
-    params:
-      input_layer: traversability
-      output_layer: traversability_mask
-
-  # Set lower threshold on traversability.
-  - name: traversability_mask_lower_threshold
-    type: gridMapFilters/ThresholdFilter
-    params:
-      condition_layer: traversability_mask
-      output_layer: traversability_mask
-      lower_threshold: 0.5 # Note - for now must match /local_footstep_planner/foothold_obj_threshold
-      set_to: 0.0
+      layers: [z_temp, z_finite, traversability_hole_mask, traversability_hole_mask_filtered, elevation, variance, horizontal_variance_x, horizontal_variance_y, horizontal_variance_xy, color, time, dynamic_time, lowest_scan_point, sensor_x_at_lowest_scan, sensor_y_at_lowest_scan, sensor_z_at_lowest_scan, slope, roughness]

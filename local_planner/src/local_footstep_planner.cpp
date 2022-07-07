@@ -584,7 +584,8 @@ Eigen::Vector3d LocalFootstepPlanner::getNearestValidFoothold(
   double best_kin_cost = std::numeric_limits<double>::max();
 
   // Spiral outwards from the nominal until we find a valid foothold
-  for (grid_map::SpiralIterator iterator(terrain_grid_, pos_center_aligned,
+  // SpiralIterator doesn't do checking, when the terrain_grid updates, it throws a segmentation fault
+  for (grid_map::CircleIterator iterator(terrain_grid_, pos_center_aligned,
                                          foothold_search_radius_);
        !iterator.isPastEnd(); ++iterator) {
     // Apply the offset to realign with the nominal foot position
