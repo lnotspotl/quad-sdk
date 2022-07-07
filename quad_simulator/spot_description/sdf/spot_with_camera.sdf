@@ -99,6 +99,7 @@
       <velocity_decay/>
       <velocity_decay/>
       <sensor name='realsense_R200' type='depth'>
+        <update_rate>5</update_rate>
         <always_on>1</always_on>
         <visualize>0</visualize>
         <camera name='__default__'>
@@ -119,7 +120,7 @@
         <plugin name='camera_controller' filename='libgazebo_ros_openni_kinect.so'>
           <baseline>0.2</baseline>
           <alwaysOn>1</alwaysOn>
-          <updateRate>5.0</updateRate>
+          <updateRate>0.0</updateRate>
           <cameraName>camera</cameraName>
           <frameName>camera_optical</frameName>
           <imageTopicName>rgb/image_raw</imageTopicName>
@@ -147,13 +148,13 @@
       <gravity>1</gravity>
       <sensor name='imu_sensor' type='imu'>
         <always_on>1</always_on>
-        <update_rate>1000</update_rate>
+        <update_rate>500</update_rate>
         <visualize>1</visualize>
         <topic>__default_topic__</topic>
         <plugin name='imu_plugin' filename='libgazebo_ros_imu_sensor.so'>
           <topicName>trunk_imu</topicName>
           <bodyName>imu_link</bodyName>
-          <updateRateHZ>1000.0</updateRateHZ>
+          <updateRateHZ>500.0</updateRateHZ>
           <gaussianNoise>0.0</gaussianNoise>
           <xyzOffset>0 0 0</xyzOffset>
           <rpyOffset>0 0 0</rpyOffset>

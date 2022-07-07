@@ -42,8 +42,8 @@ scanning_duration:                          1.0
 # Init submap
 initialize_elevation_map:                   true
 initialization_method:                      0
-length_in_x_init_submap:                    4.5
-length_in_y_init_submap:                    3.5
+length_in_x_init_submap:                    4.0
+length_in_y_init_submap:                    4.0
 init_submap_height_offset:                  -0.00
 init_submap_variance:                       0.001
 target_frame_init_submap:                   map
