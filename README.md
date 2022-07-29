@@ -1,3 +1,5 @@
+![Spot robot](doc/spot.png)
+
 [![CircleCI](https://circleci.com/gh/robomechanics/quad-sdk/tree/main.svg?style=shield)](https://circleci.com/gh/robomechanics/quad-sdk/tree/main)
 ![Example image](doc/quad_sdk_promo.png)
 
