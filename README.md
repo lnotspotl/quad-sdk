@@ -1,5 +1,3 @@
-![Spot robot](doc/spot.png)
-
 [![CircleCI](https://circleci.com/gh/robomechanics/quad-sdk/tree/main.svg?style=shield)](https://circleci.com/gh/robomechanics/quad-sdk/tree/main)
 ![Example image](doc/quad_sdk_promo.png)
 
@@ -84,6 +82,9 @@ Refer to the [Wiki](https://github.com/robomechanics/quad-sdk/wiki/2.-Using-the-
 
 Please report bugs and request features using the [Issue Tracker](https://github.com/robomechanics/quad-sdk/issues).
 
+## Support for Spot
+
+![Spot robot](doc/spot.png)
 
 [paper]: https://www.andrew.cmu.edu/user/amj1/papers/Quad_SDK_ICRA_Abstract.pdf
 [ROS]: http://www.ros.org
