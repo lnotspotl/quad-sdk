@@ -84,7 +84,7 @@ Please report bugs and request features using the [Issue Tracker](https://github
 
 ## Support for Spot
 
-![Spot robot](doc/spot_new.png)
+![Spot robot](doc/spot.png)
 
 [paper]: https://www.andrew.cmu.edu/user/amj1/papers/Quad_SDK_ICRA_Abstract.pdf
 [ROS]: http://www.ros.org
